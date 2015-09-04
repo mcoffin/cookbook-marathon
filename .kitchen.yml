@@ -1,0 +1,18 @@
+---
+driver:
+  name: vagrant
+  customize:
+    nictype1: virtio
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+  - name: ubuntu-15.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[marathon]
+    attributes:
