@@ -5,12 +5,12 @@ default['marathon']['restart_sec'] = '20'
 default['marathon']['options'] = []
 
 default['marathon']['init'] = case node['platform']
-                            when 'ubuntu' then
-                              if node['platform_version'] > '14.04'
-                                'systemd'
+                              when 'ubuntu' then
+                                if node['platform_version'] > '14.04'
+                                  'systemd'
+                                else
+                                  'upstart'
+                                end
                               else
                                 'upstart'
                               end
-                            else
-                              'upstart'
-                            end
