@@ -1,11 +1,11 @@
 include_recipe 'marathon::install'
 
-start_command = "#{node[:marathon][:path]}/bin/start"
-node[:marathon][:options].each do |opt, value|
+start_command = "#{node['marathon']['path']}/bin/start"
+node['marathon']['options'].each do |opt, value|
   start_command << " --#{opt} #{value}"
 end
 
-case node[:marathon][:init]
+case node['marathon']['init']
 when 'systemd'
   systemd_service 'marathon' do
     after 'network.target'
@@ -13,11 +13,11 @@ when 'systemd'
     description 'Marathon framework'
     exec_start start_command
     restart 'always'
-    restart_sec node[:marathon][:restart_sec]
+    restart_sec node['marathon']['restart_sec']
     action [:create, :enable, :start]
   end
 when 'upstart'
-  chefstart = "#{node[:marathon][:path]}/bin/chef-start"
+  chefstart = "#{node['marathon']['path']}/bin/chef-start"
   file chefstart do
     content start_command
     mode '0755'
