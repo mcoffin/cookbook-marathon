@@ -1,6 +1,7 @@
 include_recipe 'marathon::install'
 
-start_command = "#{node['marathon']['path']}/bin/start"
+start_command = "#!/usr/bin/env bash\n"
+start_command << "#{node['marathon']['path']}/bin/start"
 node['marathon']['options'].each do |opt, value|
   start_command << " --#{opt} #{value}"
 end
