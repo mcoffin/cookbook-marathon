@@ -4,6 +4,8 @@ default['marathon']['path'] = '/opt/marathon'
 default['marathon']['restart_sec'] = '20'
 default['marathon']['options'] = {}
 
+default['marathon']['env'] = {}
+
 default['marathon']['init'] = case node['platform']
                               when 'ubuntu' then
                                 if node['platform_version'] > '14.04'

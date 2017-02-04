@@ -21,9 +21,12 @@ when 'systemd'
     after 'network.target'
     wants 'network.target'
     description 'Marathon framework'
-    exec_start chefstart
-    restart 'always'
-    restart_sec node['marathon']['restart_sec']
+    service do
+      environment node['marathon']['env']
+      exec_start chefstart
+      restart 'always'
+      restart_sec node['marathon']['restart_sec']
+    end
     action [:create, :enable, :start]
   end
   service 'marathon' do
